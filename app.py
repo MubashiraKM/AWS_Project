@@ -11,7 +11,7 @@ app.secret_key = "super_secret_key_for_flash_messages"
 # --- AWS CONFIGURATION ---
 REGION = 'us-east-1'
 BUCKET_NAME = 'smart-cloud-notes-app' # <--- CHANGE THIS!
-DYNAMO_TABLE = 'StudentNotes'
+DYNAMO_TABLE = 'CloudNotes'
 
 # Initialize AWS clients
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
