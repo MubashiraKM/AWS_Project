@@ -20,6 +20,12 @@
                 <span class="badge">{{ note.subject }}</span>
                 <h3>{{ note.title }}</h3>
                 <p class="note-content">{{ note.content[:100] }}{% if note.content|length > 100 %}...{% endif %}</p>
+
+                <form action="{{ url_for('delete_note', note_id=note.note_id) }}" method="POST">
+    <button type="submit" onclick="return confirm('Delete this note?')">
+        🗑 Delete
+    </button>
+</form>
                 
                 {% if note.file_name %}
                 <div class="attachment">
