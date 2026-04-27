@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <aside class="sidebar">
+        <h3>Subjects</h3>
+        <ul class="subject-list">
+            <li><a href="{{ url_for('dashboard') }}">All Subjects</a></li>
+            {% for sub in subjects %}
+            <li><a href="{{ url_for('view_subject', subject_name=sub) }}">📁 {{ sub }}</a></li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <section class="notes-feed">
+        <h2>Recent Notes</h2>
+        <div class="notes-grid">
+            {% for note in notes %}
+            <div class="note-card">
+                <span class="badge">{{ note.subject }}</span>
+                <h3>{{ note.title }}</h3>
+                <p class="note-content">{{ note.content[:100] }}{% if note.content|length > 100 %}...{% endif %}</p>
+                
+                {% if note.file_name %}
+                <div class="attachment">
+                    📄 <a href="{{ url_for('download_file', note_id=note.note_id) }}" target="_blank">View {{ note.file_name }}</a>
+                </div>
+                {% endif %}
+                
+                <small class="date">Added: {{ note.created_at }}</small>
+            </div>
+            {% else %}
+            <p>No notes found. Click '+ New Note' to start studying!</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
