@@ -10,7 +10,7 @@ app.secret_key = "super_secret_key_for_flash_messages"
 
 # --- AWS CONFIGURATION ---
 REGION = 'us-east-1'
-BUCKET_NAME = 'YOUR_S3_BUCKET_NAME_HERE' # <--- CHANGE THIS!
+BUCKET_NAME = 'smart-cloud-notes-app' # <--- CHANGE THIS!
 DYNAMO_TABLE = 'StudentNotes'
 
 # Initialize AWS clients
