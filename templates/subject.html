@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="subject-header">
+    <h2>📁 Subject: {{ subject_name }}</h2>
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Back to Dashboard</a>
+</div>
+
+<div class="notes-grid">
+    {% for note in notes %}
+    <div class="note-card">
+        <h3>{{ note.title }}</h3>
+        <p class="note-content">{{ note.content }}</p>
+        
+        {% if note.file_name %}
+        <div class="attachment">
+            📄 <a href="{{ url_for('download_file', note_id=note.note_id) }}" target="_blank">View {{ note.file_name }}</a>
+        </div>
+        {% endif %}
+        
+        <small class="date">Added: {{ note.created_at }}</small>
+    </div>
+    {% else %}
+    <p>No notes in this subject yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
