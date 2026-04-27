@@ -117,5 +117,24 @@ def download_file(note_id):
         return redirect(presigned_url)
     return "File not found", 404
 
+@app.route('/delete/<note_id>', methods=['POST'])
+def delete_note(note_id):
+    try:
+        # Get note (to check if file exists)
+        response = table.get_item(Key={'note_id': note_id})
+        note = response.get('Item')
+
+        # Delete file from S3 if exists
+        if note and 's3_key' in note:
+            s3_client.delete_object(Bucket=BUCKET_NAME, Key=note['s3_key'])
+
+        # Delete from DynamoDB
+        table.delete_item(Key={'note_id': note_id})
+
+    except Exception as e:
+        print("Delete Error:", e)
+
+    return redirect(url_for('dashboard'))
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
